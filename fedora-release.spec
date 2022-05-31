@@ -38,6 +38,7 @@
 %bcond_with i3
 %bcond_with lxqt
 %bcond_with budgie
+%bcond_with sway
 %else
 %bcond_without basic
 %bcond_without cinnamon
@@ -60,6 +61,7 @@
 %bcond_without i3
 %bcond_without lxqt
 %bcond_without budgie
+%bcond_without sway
 %endif
 
 %global dist %{?eln:.eln%{eln}}
@@ -940,6 +942,43 @@ itself as Fedora Budgie.
 %endif
 
 
+%if %{with sway}
+%package sway
+Summary:        Base package for Fedora Sway specific default configurations
+
+RemovePathPostfixes: .sway
+Provides:       fedora-release = %{version}-%{release}
+Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       system-release
+Provides:       system-release(%{version})
+Provides:       base-module(platform:f%{version})
+Requires:       fedora-release-common = %{version}-%{release}
+
+# fedora-release-common Requires: fedora-release-identity, so at least one
+# package must provide it. This Recommends: pulls in
+# fedora-release-identity-sway if nothing else is already doing so.
+Recommends:     fedora-release-identity-sway
+
+
+%description sway
+Provides a base package for Fedora Sway specific configuration files to
+depend on.
+
+
+%package identity-sway
+Summary:        Package providing the identity for Fedora Sway Spin
+
+RemovePathPostfixes: .sway
+Provides:       fedora-release-identity = %{version}-%{release}
+Conflicts:      fedora-release-identity
+
+
+%description identity-sway
+Provides the necessary files for a Fedora installation that is identifying
+itself as Fedora Sway.
+%endif
+
+
 %prep
 sed -i 's|@@VERSION@@|%{dist_version}|g' %{SOURCE2}
 
@@ -1293,6 +1332,15 @@ sed -i -e "s|(%{release_name}%{?prerelease})|(Budgie%{?prerelease})|g" %{buildro
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Budgie/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.budgie
 %endif
 
+%if %{with sway}
+cp -p os-release %{buildroot}%{_prefix}/lib/os-release.sway
+echo "VARIANT=\"Sway\"" >> %{buildroot}%{_prefix}/lib/os-release.sway
+echo "VARIANT_ID=sway" >> %{buildroot}%{_prefix}/lib/os-release.sway
+sed -i -e "s|(%{release_name}%{?prerelease})|(Sway%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.sway
+sed -i -e 's|BUG_REPORT_URL=.*|BUG_REPORT_URL="https://gitlab.com/fedora/sigs/sway/SIG/-/issues"|' %{buildroot}/%{_prefix}/lib/os-release.sway
+sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Sway/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sway
+%endif
+
 # Create the symlink for /etc/os-release
 ln -s ../usr/lib/os-release %{buildroot}%{_sysconfdir}/os-release
 
@@ -1560,6 +1608,15 @@ ln -s %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.or
 %files identity-budgie
 %{_prefix}/lib/os-release.budgie
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.budgie
+%endif
+
+
+%if %{with sway}
+%files sway
+%files identity-sway
+%{_prefix}/lib/os-release.sway
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sway
+%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
