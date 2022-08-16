@@ -39,6 +39,7 @@
 %bcond_with lxqt
 %bcond_with budgie
 %bcond_with sway
+%bcond_with sericea
 %else
 %bcond_without basic
 %bcond_without cinnamon
@@ -62,9 +63,10 @@
 %bcond_without lxqt
 %bcond_without budgie
 %bcond_without sway
+%bcond_without sericea
 %endif
 
-%if %{with silverblue} || %{with kinoite}
+%if %{with silverblue} || %{with kinoite} || %{with sericea}
 %global with_ostree_desktop 1
 %endif
 
@@ -983,6 +985,44 @@ itself as Fedora Sway.
 %endif
 
 
+%if %{with sericea}
+%package sericea
+Summary:        Base package for Fedora Sericea specific default configurations
+
+RemovePathPostfixes: .sericea
+Provides:       fedora-release = %{version}-%{release}
+Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       system-release
+Provides:       system-release(%{version})
+Provides:       base-module(platform:f%{version})
+Requires:       fedora-release-common = %{version}-%{release}
+Requires:       fedora-release-ostree-desktop = %{version}-%{release}
+
+# fedora-release-common Requires: fedora-release-identity, so at least one
+# package must provide it. This Recommends: pulls in
+# fedora-release-identity-sericea if nothing else is already doing so.
+Recommends:     fedora-release-identity-sericea
+
+
+%description sericea
+Provides a base package for Fedora Sericea specific configuration
+files to depend on.
+
+
+%package identity-sericea
+Summary:        Package providing the identity for Fedora Sericea
+
+RemovePathPostfixes: .sericea
+Provides:       fedora-release-identity = %{version}-%{release}
+Conflicts:      fedora-release-identity
+
+
+%description identity-sericea
+Provides the necessary files for a Fedora installation that is identifying
+itself as Fedora Sericea.
+%endif
+
+
 %prep
 sed -i 's|@@VERSION@@|%{dist_version}|g' %{SOURCE2}
 
@@ -1345,6 +1385,15 @@ sed -i -e 's|BUG_REPORT_URL=.*|BUG_REPORT_URL="https://gitlab.com/fedora/sigs/sw
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Sway/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sway
 %endif
 
+%if %{with sericea}
+cp -p os-release %{buildroot}%{_prefix}/lib/os-release.sericea
+echo "VARIANT=\"Sericea\"" >> %{buildroot}%{_prefix}/lib/os-release.sericea
+echo "VARIANT_ID=sericea" >> %{buildroot}%{_prefix}/lib/os-release.sericea
+sed -i -e "s|(%{release_name}%{?prerelease})|(Sericea%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.sericea
+sed -i -e 's|BUG_REPORT_URL=.*|BUG_REPORT_URL="https://gitlab.com/fedora/sigs/sway/SIG/-/issues"|' %{buildroot}/%{_prefix}/lib/os-release.sericea
+sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Sericea/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sericea
+%endif
+
 # Create the symlink for /etc/os-release
 ln -s ../usr/lib/os-release %{buildroot}%{_sysconfdir}/os-release
 
@@ -1621,6 +1670,16 @@ ln -s %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.or
 %{_prefix}/lib/os-release.sway
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sway
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
+%endif
+
+
+%if %{with sericea}
+%files sericea
+%files identity-sericea
+%{_prefix}/lib/os-release.sericea
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sericea
+%{_prefix}/lib/systemd/system-preset/81-desktop.preset
+%{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
 %endif
 
 
