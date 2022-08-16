@@ -64,6 +64,10 @@
 %bcond_without sway
 %endif
 
+%if %{with silverblue} || %{with kinoite}
+%global with_ostree_desktop 1
+%endif
+
 %global dist %{?eln:.eln%{eln}}
 
 # Changes should be submitted as pull requests under
@@ -668,7 +672,7 @@ itself as Fedora Kinoite.
 %endif
 
 
-%if %{with silverblue} || %{with kinoite}
+%if %{with ostree_desktop}
 %package ostree-desktop
 Summary:        Configuration package for rpm-ostree variants to add rpm-ostree polkit rules
 
@@ -1283,12 +1287,12 @@ install -Dm0644 %{SOURCE26} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
 install -Dm0644 %{SOURCE27} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
 %endif
 
-%if %{with silverblue} || %{with kinoite}
+%if %{with ostree_desktop}
 # Install rpm-ostree polkit rules
 install -Dm0644 %{SOURCE17} -t %{buildroot}%{_datadir}/polkit-1/rules.d/
 %endif
 
-%if %{with iot} || %{with silverblue} || %{with kinoite}
+%if %{with iot} || %{with ostree_desktop}
 # Statically enable rpm-ostree-countme timer
 install -dm0755 %{buildroot}%{_unitdir}/timers.target.wants/
 ln -snf %{_unitdir}/rpm-ostree-countme.timer %{buildroot}%{_unitdir}/timers.target.wants/
@@ -1545,7 +1549,7 @@ ln -s %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.or
 %endif
 
 
-%if %{with silverblue} || %{with kinoite}
+%if %{with ostree_desktop}
 %files ostree-desktop
 %attr(0644,root,root) %{_prefix}/share/polkit-1/rules.d/org.projectatomic.rpmostree1.rules
 %endif
