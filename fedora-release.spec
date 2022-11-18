@@ -1,6 +1,8 @@
 %define release_name Rawhide
 %define is_rawhide 1
 
+%define eol_date 2024-05-14
+
 %define dist_version 38
 %define rhel_dist_version 10
 
@@ -971,6 +973,7 @@ REDHAT_BUGZILLA_PRODUCT="Fedora"
 REDHAT_BUGZILLA_PRODUCT_VERSION=%{bug_version}
 REDHAT_SUPPORT_PRODUCT="Fedora"
 REDHAT_SUPPORT_PRODUCT_VERSION=%{bug_version}
+SUPPORT_END=%{eol_date}
 EOF
 
 # Create the common /etc/issue
