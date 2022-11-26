@@ -193,6 +193,7 @@ Summary:        Package providing the identity for Fedora Cinnamon Spin
 RemovePathPostfixes: .cinnamon
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-cinnamon = %{version}-%{release}
 
 
 %description identity-cinnamon
@@ -230,6 +231,7 @@ Summary:        Package providing the identity for Fedora Cloud Edition
 RemovePathPostfixes: .cloud
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-cloud = %{version}-%{release}
 
 
 %description identity-cloud
@@ -267,6 +269,7 @@ Summary:        Package providing the identity for Fedora Comp Neuro Lab
 RemovePathPostfixes: .compneuro
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-compneuro = %{version}-%{release}
 
 
 %description identity-compneuro
@@ -304,6 +307,7 @@ Summary:        Package providing the identity for Fedora Container Base Image
 RemovePathPostfixes: .container
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-container = %{version}-%{release}
 
 
 %description identity-container
@@ -341,6 +345,7 @@ Summary:        Package providing the identity for Fedora CoreOS
 RemovePathPostfixes: .coreos
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-coreos = %{version}-%{release}
 
 
 %description identity-coreos
@@ -379,6 +384,7 @@ Summary:        Package providing the identity for Fedora Design Suite Lab
 RemovePathPostfixes: .designsuite
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-designsuite = %{version}-%{release}
 
 
 %description identity-designsuite
@@ -426,6 +432,7 @@ Suggests: lorax-templates-rhel
 RemovePathPostfixes: .eln
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-eln = %{version}-%{release}
 
 
 %description identity-eln
@@ -463,6 +470,7 @@ Summary:        Package providing the identity for Fedora IoT Edition
 RemovePathPostfixes: .iot
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-iot = %{version}-%{release}
 
 
 %description identity-iot
@@ -500,6 +508,7 @@ Summary:        Package providing the identity for Fedora KDE Plasma Spin
 RemovePathPostfixes: .kde
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-kde = %{version}-%{release}
 
 
 %description identity-kde
@@ -537,6 +546,7 @@ Summary:        Package providing the identity for Fedora MATE-Compiz Spin
 RemovePathPostfixes: .matecompiz
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-matecompiz = %{version}-%{release}
 
 
 %description identity-matecompiz
@@ -574,6 +584,7 @@ Summary:        Package providing the identity for Fedora Server Edition
 RemovePathPostfixes: .server
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-server = %{version}-%{release}
 
 
 %description identity-server
@@ -618,6 +629,7 @@ Summary:        Package providing the identity for Fedora Silverblue
 RemovePathPostfixes: .silverblue
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-silverblue = %{version}-%{release}
 
 
 %description identity-silverblue
@@ -656,6 +668,7 @@ Summary:        Package providing the identity for Fedora Kinoite
 RemovePathPostfixes: .kinoite
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-kinoite = %{version}-%{release}
 
 
 %description identity-kinoite
@@ -702,6 +715,7 @@ Summary:        Package providing the identity for Fedora Snappy environments
 RemovePathPostfixes: .snappy
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-snappy = %{version}-%{release}
 
 
 %description identity-snappy
@@ -739,6 +753,7 @@ Summary:        Package providing the identity for Fedora Sugar on a Stick
 RemovePathPostfixes: .soas
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-soas = %{version}-%{release}
 
 
 %description identity-soas
@@ -783,6 +798,7 @@ Summary:        Package providing the identity for Fedora Workstation Edition
 RemovePathPostfixes: .workstation
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-workstation = %{version}-%{release}
 
 
 %description identity-workstation
@@ -820,6 +836,7 @@ Summary:        Package providing the identity for Fedora Xfce Spin
 RemovePathPostfixes: .xfce
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-xfce = %{version}-%{release}
 
 
 %description identity-xfce
@@ -857,6 +874,7 @@ Summary:        Package providing the identity for Fedora i3 Spin
 RemovePathPostfixes: .i3
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-i3 = %{version}-%{release}
 
 
 %description identity-i3
@@ -894,6 +912,7 @@ Summary:        Package providing the identity for Fedora LXQt Spin
 RemovePathPostfixes: .lxqt
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires:       fedora-release-lxqt = %{version}-%{release}
 
 
 %description identity-lxqt
@@ -1387,24 +1406,24 @@ ln -s %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.or
 
 %if %{with iot}
 %files iot
-%files identity-iot
-%{_prefix}/lib/os-release.iot
 %{_prefix}/lib/systemd/system-preset/80-iot.preset
 %{_prefix}/lib/systemd/user-preset/80-iot-user.preset
-%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.iot
 %{_prefix}/lib/zezere-ignition-url
 %{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
+%files identity-iot
+%{_prefix}/lib/os-release.iot
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.iot
 %endif
 
 
 %if %{with kde}
 %files kde
-%files identity-kde
-%{_prefix}/lib/os-release.kde
 %{_prefix}/lib/systemd/system-preset/80-kde.preset
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
-%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.kde
 %{_sysconfdir}/dnf/protected.d/plasma-desktop.conf
+%files identity-kde
+%{_prefix}/lib/os-release.kde
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.kde
 %endif
 
 
@@ -1418,34 +1437,34 @@ ln -s %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.or
 
 %if %{with server}
 %files server
+%{_prefix}/lib/systemd/system-preset/80-server.preset
 %files identity-server
 %{_prefix}/lib/os-release.server
-%{_prefix}/lib/systemd/system-preset/80-server.preset
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.server
 %endif
 
 
 %if %{with silverblue}
 %files silverblue
-%files identity-silverblue
-%{_prefix}/lib/os-release.silverblue
-%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.silverblue
 # Keep this in sync with workstation below
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.gschema.override
 %{_prefix}/lib/systemd/system-preset/80-workstation.preset
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
+%files identity-silverblue
+%{_prefix}/lib/os-release.silverblue
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.silverblue
 %endif
 
 
 %if %{with kinoite}
 %files kinoite
-%files identity-kinoite
-%{_prefix}/lib/os-release.kinoite
 %{_prefix}/lib/systemd/system-preset/80-kde.preset
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
-%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.kinoite
 %{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
+%files identity-kinoite
+%{_prefix}/lib/os-release.kinoite
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.kinoite
 %endif
 
 
@@ -1473,14 +1492,14 @@ ln -s %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.or
 
 %if %{with workstation}
 %files workstation
-%files identity-workstation
-%{_prefix}/lib/os-release.workstation
-%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.workstation
 %{_sysconfdir}/dnf/protected.d/fedora-workstation.conf
 # Keep this in sync with silverblue above
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.gschema.override
 %{_prefix}/lib/systemd/system-preset/80-workstation.preset
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
+%files identity-workstation
+%{_prefix}/lib/os-release.workstation
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.workstation
 %endif
 
 
