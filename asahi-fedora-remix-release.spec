@@ -1,5 +1,10 @@
+%if 0%{?fc37}
+%define release_name Thirty Seven
+%define is_rawhide 0
+%else
 %define release_name Rawhide
 %define is_rawhide 1
+%endif
 
 # This is going to go badly for you if you build on not-Fedora...
 %if 0%{?fedora}
