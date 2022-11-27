@@ -1,8 +1,6 @@
 %define release_name Rawhide
 %define is_rawhide 1
 
-%define eol_date 2024-05-14
-
 # This is going to go badly for you if you build on not-Fedora...
 %if 0%{?fedora}
 %define dist_version %{fedora}
@@ -998,7 +996,6 @@ REDHAT_BUGZILLA_PRODUCT="Fedora"
 REDHAT_BUGZILLA_PRODUCT_VERSION=%{bug_version}
 REDHAT_SUPPORT_PRODUCT="Fedora"
 REDHAT_SUPPORT_PRODUCT_VERSION=%{bug_version}
-SUPPORT_END=%{eol_date}
 EOF
 
 # Create the common /etc/issue
