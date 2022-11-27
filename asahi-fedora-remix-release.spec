@@ -3,7 +3,12 @@
 
 %define eol_date 2024-05-14
 
+# This is going to go badly for you if you build on not-Fedora...
+%if 0%{?fedora}
+%define dist_version %{fedora}
+%else
 %define dist_version 38
+%endif
 %define rhel_dist_version 10
 
 %if %{is_rawhide}
@@ -64,7 +69,7 @@
 
 Summary:        Asahi Fedora Remix release files
 Name:           asahi-fedora-remix-release
-Version:        38
+Version:        %{dist_version}
 # The numbering is 0.<r> before a given Fedora Linux release is released,
 # with r starting at 1, and then just <r>, with r starting again at 1.
 # Use '%%autorelease -p' before final, and then drop the '-p'.
