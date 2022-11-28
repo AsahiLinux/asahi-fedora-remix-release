@@ -371,3 +371,8 @@ enable power-profiles-daemon.service
 # Enable clevis-luks-askpass.path
 # https://bugzilla.redhat.com/show_bug.cgi?id=2101719
 enable clevis-luks-askpass.path
+
+# Enable livesys services for live media
+# https://bugzilla.redhat.com/show_bug.cgi?id=2148790
+enable livesys.service
+enable livesys-late.service
