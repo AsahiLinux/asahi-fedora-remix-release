@@ -139,6 +139,9 @@ Suggests:   asahi-fedora-remix-release
 Requires:   fedora-repos(%{version})
 Requires:   asahi-fedora-remix-release-identity = %{version}-%{release}
 
+Obsoletes:  fedora-release-common < 1:%{version}-%{release}
+Provides:   fedora-release-common = 1:%{version}-%{release}
+
 %if %{is_rawhide}
 # Make $releasever return "rawhide" on Rawhide
 # https://pagure.io/releng/issue/7445
@@ -165,6 +168,8 @@ RemovePathPostfixes: .basic
 Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 
+Obsoletes:      fedora-release-release-identity < 1:%{version}-%{release}
+Provides:       fedora-release-release-identity = 1:%{version}-%{release}
 
 %description identity-basic
 Provides the necessary files for a Fedora installation that is not identifying
@@ -183,6 +188,9 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+Obsoletes:      fedora-release-cinnamon < 1:%{version}-%{release}
+Provides:       fedora-release-cinnamon = 1:%{version}-%{release}
 
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -203,6 +211,8 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-cinnamon = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-cinnamon < 1:%{version}-%{release}
+Provides:       fedora-release-identity-cinnamon = 1:%{version}-%{release}
 
 %description identity-cinnamon
 Provides the necessary files for a Fedora installation that is identifying
@@ -221,6 +231,9 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+Obsoletes:      fedora-release-cloud < 1:%{version}-%{release}
+Provides:       fedora-release-cloud = 1:%{version}-%{release}
 
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -241,6 +254,8 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-cloud = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-cloud < 1:%{version}-%{release}
+Provides:       fedora-release-identity-cloud = 1:%{version}-%{release}
 
 %description identity-cloud
 Provides the necessary files for a Fedora installation that is identifying
@@ -259,6 +274,9 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+Obsoletes:      fedora-release-compneuro < 1:%{version}-%{release}
+Provides:       fedora-release-compneuro = 1:%{version}-%{release}
 
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -279,6 +297,8 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-compneuro = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-compneuro < 1:%{version}-%{release}
+Provides:       fedora-release-identity-compneuro = 1:%{version}-%{release}
 
 %description identity-compneuro
 Provides the necessary files for a Fedora installation that is identifying
@@ -297,6 +317,9 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+Obsoletes:      fedora-release-container < 1:%{version}-%{release}
+Provides:       fedora-release-container = 1:%{version}-%{release}
 
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -317,6 +340,8 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-container = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-container < 1:%{version}-%{release}
+Provides:       fedora-release-identity-container = 1:%{version}-%{release}
 
 %description identity-container
 Provides the necessary files for a Fedora installation that is identifying
@@ -336,6 +361,9 @@ Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
+Obsoletes:      fedora-release-coreos < 1:%{version}-%{release}
+Provides:       fedora-release-coreos = 1:%{version}-%{release}
+
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
 # asahi-fedora-remix-release-identity-coreos if nothing else is already doing so.
@@ -354,6 +382,9 @@ RemovePathPostfixes: .coreos
 Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-coreos = %{version}-%{release}
+
+Obsoletes:      fedora-release-identity-coreos < 1:%{version}-%{release}
+Provides:       fedora-release-identity-coreos = 1:%{version}-%{release}
 
 
 %description identity-coreos
@@ -375,6 +406,9 @@ Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 Provides:       system-release-product
 
+Obsoletes:      fedora-release-designsuite < 1:%{version}-%{release}
+Provides:       fedora-release-designsuite = 1:%{version}-%{release}
+
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
 # asahi-fedora-remix-release-identity-designsuite if nothing else is already doing so.
@@ -393,6 +427,9 @@ RemovePathPostfixes: .designsuite
 Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-designsuite = %{version}-%{release}
+
+Obsoletes:      fedora-release-identity-designsuite < 1:%{version}-%{release}
+Provides:       fedora-release-identity-designsuite = 1:%{version}-%{release}
 
 
 %description identity-designsuite
@@ -414,6 +451,9 @@ Provides:       base-module(platform:eln)
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 Provides:       system-release-product
 Requires:       fedora-repos-eln
+
+Obsoletes:      fedora-release-eln < 1:%{version}-%{release}
+Provides:       fedora-release-eln = 1:%{version}-%{release}
 
 Obsoletes:      redhat-release
 Provides:       redhat-release
@@ -442,6 +482,9 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-eln = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-eln < 1:%{version}-%{release}
+Provides:       fedora-release-identity-eln = 1:%{version}-%{release}
+
 
 %description identity-eln
 Provides the necessary files for a Fedora installation that is identifying
@@ -460,6 +503,9 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+Obsoletes:      fedora-release-iot < 1:%{version}-%{release}
+Provides:       fedora-release-iot = 1:%{version}-%{release}
 
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -480,6 +526,9 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-iot = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-iot < 1:%{version}-%{release}
+Provides:       fedora-release-identity-iot = 1:%{version}-%{release}
+
 
 %description identity-iot
 Provides the necessary files for a Fedora installation that is identifying
@@ -498,6 +547,9 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+Obsoletes:      fedora-release-kde < 1:%{version}-%{release}
+Provides:       fedora-release-kde = 1:%{version}-%{release}
 
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -518,6 +570,9 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-kde = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-kde < 1:%{version}-%{release}
+Provides:       fedora-release-identity-kde = 1:%{version}-%{release}
+
 
 %description identity-kde
 Provides the necessary files for a Fedora installation that is identifying
@@ -536,6 +591,9 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+Obsoletes:      fedora-release-matecompiz < 1:%{version}-%{release}
+Provides:       fedora-release-matecompiz = 1:%{version}-%{release}
 
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -556,6 +614,9 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-matecompiz = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-matecompiz < 1:%{version}-%{release}
+Provides:       fedora-release-identity-matecompiz = 1:%{version}-%{release}
+
 
 %description identity-matecompiz
 Provides the necessary files for a Fedora installation that is identifying
@@ -574,6 +635,9 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+Obsoletes:      fedora-release-server < 1:%{version}-%{release}
+Provides:       fedora-release-server = 1:%{version}-%{release}
 
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -594,6 +658,9 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-server = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-server < 1:%{version}-%{release}
+Provides:       fedora-release-identity-server = 1:%{version}-%{release}
+
 
 %description identity-server
 Provides the necessary files for a Fedora installation that is identifying
@@ -613,6 +680,9 @@ Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 Requires:       asahi-fedora-remix-release-ostree-desktop = %{version}-%{release}
+
+Obsoletes:      fedora-release-silverblue < 1:%{version}-%{release}
+Provides:       fedora-release-silverblue = 1:%{version}-%{release}
 
 # Third-party repositories, disabled by default unless the user opts in through fedora-third-party
 # Requires(meta) to avoid ordering loops - does not need to be installed before the release package
@@ -659,6 +729,9 @@ Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 Requires:       asahi-fedora-remix-release-ostree-desktop = %{version}-%{release}
 
+Obsoletes:      fedora-release-kinoite < 1:%{version}-%{release}
+Provides:       fedora-release-kinoite = 1:%{version}-%{release}
+
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
 # asahi-fedora-remix-release-identity-kinoite if nothing else is already doing so.
@@ -677,6 +750,9 @@ RemovePathPostfixes: .kinoite
 Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-kinoite = %{version}-%{release}
+
+Obsoletes:      fedora-release-identity-kinoite < 1:%{version}-%{release}
+Provides:       fedora-release-identity-kinoite = 1:%{version}-%{release}
 
 
 %description identity-kinoite
@@ -706,6 +782,9 @@ Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
+Obsoletes:      fedora-release-snappy < 1:%{version}-%{release}
+Provides:       fedora-release-snappy = 1:%{version}-%{release}
+
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
 # asahi-fedora-remix-release-identity-snappy if nothing else is already doing so.
@@ -724,6 +803,9 @@ RemovePathPostfixes: .snappy
 Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-snappy = %{version}-%{release}
+
+Obsoletes:      fedora-release-identity-snappy < 1:%{version}-%{release}
+Provides:       fedora-release-identity-snappy = 1:%{version}-%{release}
 
 
 %description identity-snappy
@@ -744,6 +826,9 @@ Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
+Obsoletes:      fedora-release-soas < 1:%{version}-%{release}
+Provides:       fedora-release-soas = 1:%{version}-%{release}
+
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
 # asahi-fedora-remix-release-identity-soas if nothing else is already doing so.
@@ -762,6 +847,9 @@ RemovePathPostfixes: .soas
 Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-soas = %{version}-%{release}
+
+Obsoletes:      fedora-release-identity-soas < 1:%{version}-%{release}
+Provides:       fedora-release-identity-soas = 1:%{version}-%{release}
 
 
 %description identity-soas
@@ -782,6 +870,9 @@ Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 Provides:       system-release-product
+
+Obsoletes:      fedora-release-workstation < 1:%{version}-%{release}
+Provides:       fedora-release-workstation = 1:%{version}-%{release}
 
 # Third-party repositories, disabled by default unless the user opts in through fedora-third-party
 # Requires(meta) to avoid ordering loops - does not need to be installed before the release package
@@ -808,6 +899,9 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-workstation = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-workstation < 1:%{version}-%{release}
+Provides:       fedora-release-identity-workstation = 1:%{version}-%{release}
+
 
 %description identity-workstation
 Provides the necessary files for a Fedora installation that is identifying
@@ -826,6 +920,9 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+Obsoletes:      fedora-release-xfce < 1:%{version}-%{release}
+Provides:       fedora-release-xfce = 1:%{version}-%{release}
 
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -846,6 +943,9 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-xfce = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-xfce < 1:%{version}-%{release}
+Provides:       fedora-release-identity-xfce = 1:%{version}-%{release}
+
 
 %description identity-xfce
 Provides the necessary files for a Fedora installation that is identifying
@@ -864,6 +964,9 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+Obsoletes:      fedora-release-i3 < 1:%{version}-%{release}
+Provides:       fedora-release-i3 = 1:%{version}-%{release}
 
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -884,6 +987,9 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-i3 = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-i3 < 1:%{version}-%{release}
+Provides:       fedora-release-identity-i3 = 1:%{version}-%{release}
+
 
 %description identity-i3
 Provides the necessary files for a Fedora installation that is identifying
@@ -902,6 +1008,9 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+Obsoletes:      fedora-release-lxqt < 1:%{version}-%{release}
+Provides:       fedora-release-lxqt = 1:%{version}-%{release}
 
 # asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -922,6 +1031,8 @@ Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
 Conflicts:      asahi-fedora-remix-release-identity
 Requires:       asahi-fedora-remix-release-lxqt = %{version}-%{release}
 
+Obsoletes:      fedora-release-identity-lxqt < 1:%{version}-%{release}
+Provides:       fedora-release-identity-lxqt = 1:%{version}-%{release}
 
 %description identity-lxqt
 Provides the necessary files for a Fedora installation that is identifying
