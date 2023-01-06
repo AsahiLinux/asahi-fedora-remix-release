@@ -26,4 +26,4 @@ this release by Red Hat, Inc.
 
 = Export Compliance Information =
 
-For export compliance information, please see: https://docs.fedoraproject.org/en-US/legal/export/
+For US export compliance information, please see: https://docs.fedoraproject.org/en-US/legal/export/
