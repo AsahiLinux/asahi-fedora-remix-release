@@ -380,8 +380,3 @@ enable livesys-late.service
 # Enable Waydroid
 # https://bugzilla.redhat.com/show_bug.cgi?id=2157810
 enable waydroid-container.service
-
-# Enable podman-restart to auto-start containers configured for auto-restart
-# at boot
-# https://bugzilla.redhat.com/show_bug.cgi?id=2149642
-enable podman-restart.service
