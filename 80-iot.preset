@@ -9,6 +9,7 @@ enable greenboot-healthcheck.service
 enable greenboot-rpm-ostree-grub2-check-fallback.service
 enable greenboot-status.service
 enable greenboot-task-runner.service
+enable greenboot-loading-message.service
 enable redboot-auto-reboot.service
 enable redboot-task-runner.service
 
