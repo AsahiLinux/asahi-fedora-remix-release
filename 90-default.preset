@@ -92,9 +92,11 @@ enable multipathd.service
 enable libstoragemgmt.service
 
 # Approved by FESCo - https://pagure.io/fesco/issue/2386
-enable iscsi.service
 enable iscsid.socket
 enable iscsiuio.socket
+
+# Approved by FESCo - https://pagure.io/fesco/issue/2943
+enable iscsi-starter.service
 
 # iSCSI support for early-boot
 # https://bugzilla.redhat.com/show_bug.cgi?id=1930470
