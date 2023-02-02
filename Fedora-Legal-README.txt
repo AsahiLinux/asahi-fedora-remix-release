@@ -10,7 +10,7 @@ https://docs.fedoraproject.org/en-US/legal/license-approval/
 
 = Source Availability =
 
-The accompanying Fedora Linux @@VERSION@@ release includes copyrighted
+The accompanying Fedora Linux 38 release includes copyrighted
 software that is licensed under the GNU General Public License and
 other licenses. You may obtain the complete machine-readable source
 code corresponding to portions of this release by sending a request, including the version number to:
@@ -18,7 +18,7 @@ code corresponding to portions of this release by sending a request, including t
 VP, Legal - Products & Technologies | Red Hat, Inc. | 100 East Davie Street | Raleigh, NC 27601 USA
 
 You may also access a copy of this source code at:
-https://dl.fedoraproject.org/pub/fedora/linux/releases/@@VERSION@@/Everything/source/
+https://dl.fedoraproject.org/pub/fedora/linux/releases/38/Everything/source/
 
 This offer is valid to anyone in receipt of this information and shall
 expire three years following the date of the final distribution of

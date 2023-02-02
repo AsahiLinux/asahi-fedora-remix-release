@@ -1345,7 +1345,7 @@ install -Dm0644 %{SOURCE17} -t %{buildroot}%{_datadir}/polkit-1/rules.d/
 %if %{with iot} || %{with ostree_desktop}
 # Statically enable rpm-ostree-countme timer
 install -dm0755 %{buildroot}%{_unitdir}/timers.target.wants/
-ln -snf %{_unitdir}/rpm-ostree-countme.timer %{buildroot}%{_unitdir}/timers.target.wants/
+ln -s ../rpm-ostree-countme.timer %{buildroot}%{_unitdir}/timers.target.wants/
 %endif
 
 %if %{with xfce}
@@ -1449,7 +1449,7 @@ install -Dm0644 %{SOURCE13} -t %{buildroot}%{_prefix}/lib/systemd/user-preset/
 install -d %{buildroot}%{_swidtagdir}
 sed -e "s#\$version#%{bug_version}#g" -e 's/<!--.*-->//;/^$/d' %{SOURCE19} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-%{bug_version}.swidtag
 install -d %{buildroot}%{_sysconfdir}/swid/swidtags.d
-ln -s %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.org
+ln -s --relative %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.org
 
 
 %files common
