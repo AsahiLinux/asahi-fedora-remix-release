@@ -1034,7 +1034,8 @@ itself as Fedora Sericea.
 
 
 %prep
-sed -i 's|@@VERSION@@|%{dist_version}|g' %{SOURCE2}
+mkdir -p licenses
+sed 's|@@VERSION@@|%{dist_version}|g' %{SOURCE2} >licenses/Fedora-Legal-README.txt
 
 %build
 
@@ -1433,9 +1434,7 @@ cat >> %{buildroot}%{_rpmconfigdir}/macros.d/macros.dist << EOF
 EOF
 
 # Install licenses
-mkdir -p licenses
 install -pm 0644 %{SOURCE1} licenses/LICENSE
-install -pm 0644 %{SOURCE2} licenses/Fedora-Legal-README.txt
 
 # Default system wide
 install -Dm0644 %{SOURCE10} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
