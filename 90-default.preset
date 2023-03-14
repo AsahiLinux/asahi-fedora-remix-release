@@ -20,8 +20,6 @@ enable systemd-oomd.service
 enable dbus.socket
 enable dbus-broker.service
 enable sshd.service
-# https://src.fedoraproject.org/rpms/openssh/pull-request/40
-enable ssh-host-keys-migration.service
 
 # Locally-running services
 enable atd.*
