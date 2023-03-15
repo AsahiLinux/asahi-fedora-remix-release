@@ -384,3 +384,8 @@ enable livesys-late.service
 # Enable Waydroid
 # https://bugzilla.redhat.com/show_bug.cgi?id=2157810
 enable waydroid-container.service
+
+# Enable nmstate to apply network configuration from /etc/nmstate/*.yml
+# https://github.com/coreos/fedora-coreos-tracker/issues/1175
+# https://github.com/coreos/fedora-coreos-config/pull/2269
+enable nmstate.service
