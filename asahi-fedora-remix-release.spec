@@ -72,18 +72,15 @@
 
 %global dist %{?eln:.eln%{eln}}
 
-# Changes should be submitted as pull requests under
-#     https://src.fedoraproject.org/rpms/fedora-release
-
-Summary:        Fedora release files
-Name:           fedora-release
+Summary:        Asahi Fedora Remix release files
+Name:           asahi-fedora-remix-release
 Version:        39
 # The numbering is 0.<r> before a given Fedora Linux release is released,
 # with r starting at 1, and then just <r>, with r starting again at 1.
 # Use '%%autorelease -p' before final, and then drop the '-p'.
 Release:        %autorelease -p
 License:        MIT
-URL:            https://fedoraproject.org/
+URL:            https://pagure.io/fedora-asahi/project
 
 Source1:        LICENSE
 Source2:        Fedora-Legal-README.txt
@@ -110,37 +107,40 @@ Source28:       longer-default-shutdown-timeout.conf
 
 BuildArch:      noarch
 
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-basic if nothing else is already doing so.
-Recommends:     fedora-release-identity-basic
+# asahi-fedora-remix-release-identity-basic if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-basic
 
+# We replace fedora-release stuff
+Conflicts:      fedora-release
+Conflicts:      fedora-release-identity
 
 BuildRequires:  redhat-rpm-config > 121-1
 BuildRequires:  systemd-rpm-macros
 
 %description
-Fedora release files such as various /etc/ files that define the release
+Asahi Fedora Remix release files such as various /etc/ files that define the release
 and systemd preset files that determine which services are enabled by default.
 # See https://docs.fedoraproject.org/en-US/packaging-guidelines/DefaultServices/ for details.
 
 
 %package common
-Summary: Fedora release files
+Summary: Asahi Fedora release files
 
-Requires:   fedora-release-variant = %{version}-%{release}
-Suggests:   fedora-release
+Requires:   asahi-fedora-remix-release-variant = %{version}-%{release}
+Suggests:   asahi-fedora-remix-release
 
 Requires:   fedora-repos(%{version})
-Requires:   fedora-release-identity = %{version}-%{release}
+Requires:   asahi-fedora-remix-release-identity = %{version}-%{release}
 
 %if %{is_rawhide}
 # Make $releasever return "rawhide" on Rawhide
@@ -149,7 +149,7 @@ Provides:       system-release(releasever) = %{releasever}
 %endif
 
 # Fedora ships a generic-release package to make the creation of Remixes
-# easier, but it cannot coexist with the fedora-release[-*] packages, so we
+# easier, but it cannot coexist with the asahi-fedora-remix-release[-*] packages, so we
 # will explicitly conflict with it.
 Conflicts:  generic-release
 
@@ -162,278 +162,278 @@ Release files common to all Editions and Spins of Fedora
 
 %if %{with basic}
 %package identity-basic
-Summary:        Package providing the basic Fedora identity
+Summary:        Package providing the basic Asahi Fedora Remix identity
 
 RemovePathPostfixes: .basic
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
 
 
 %description identity-basic
-Provides the necessary files for a Fedora installation that is not identifying
+Provides the necessary files for an Asahi Fedora Remix installation that is not identifying
 itself as a particular Edition or Spin.
 %endif
 
 
 %if %{with cinnamon}
 %package cinnamon
-Summary:        Base package for Fedora Cinnamon-specific default configurations
+Summary:        Base package for Asahi Fedora Remix Cinnamon-specific default configurations
 
 RemovePathPostfixes: .cinnamon
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-cinnamon if nothing else is already doing so.
-Recommends:     fedora-release-identity-cinnamon
+# asahi-fedora-remix-release-identity-cinnamon if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-cinnamon
 
 
 %description cinnamon
-Provides a base package for Fedora Cinnamon-specific configuration files to
+Provides a base package for Asahi Fedora Remix Cinnamon-specific configuration files to
 depend on as well as Cinnamon system defaults.
 
 
 %package identity-cinnamon
-Summary:        Package providing the identity for Fedora Cinnamon Spin
+Summary:        Package providing the identity for Asahi Fedora Remix Cinnamon Spin
 
 RemovePathPostfixes: .cinnamon
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-cinnamon = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-cinnamon = %{version}-%{release}
 
 
 %description identity-cinnamon
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Cinnamon.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Cinnamon.
 %endif
 
 
 %if %{with cloud}
 %package cloud
-Summary:        Base package for Fedora Cloud-specific default configurations
+Summary:        Base package for Asahi Fedora Remix Cloud-specific default configurations
 
 RemovePathPostfixes: .cloud
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-cloud if nothing else is already doing so.
-Recommends:     fedora-release-identity-cloud
+# asahi-fedora-remix-release-identity-cloud if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-cloud
 
 
 %description cloud
-Provides a base package for Fedora Cloud-specific configuration files to
+Provides a base package for Asahi Fedora Remix Cloud-specific configuration files to
 depend on.
 
 
 %package identity-cloud
-Summary:        Package providing the identity for Fedora Cloud Edition
+Summary:        Package providing the identity for Asahi Fedora Remix Cloud Edition
 
 RemovePathPostfixes: .cloud
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-cloud = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-cloud = %{version}-%{release}
 
 
 %description identity-cloud
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Cloud Edition.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Cloud Edition.
 %endif
 
 
 %if %{with compneuro}
 %package compneuro
-Summary:        Base package for Fedora Comp Neuro specific default configurations
+Summary:        Base package for Asahi Fedora Remix Comp Neuro specific default configurations
 
 RemovePathPostfixes: .compneuro
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-compneuro if nothing else is already doing so.
-Recommends:     fedora-release-identity-compneuro
+# asahi-fedora-remix-release-identity-compneuro if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-compneuro
 
 
 %description compneuro
-Provides a base package for Fedora Comp Neuro specific configuration files to
+Provides a base package for Asahi Fedora Remix Comp Neuro specific configuration files to
 depend on as well as Comp Neuro system defaults.
 
 
 %package identity-compneuro
-Summary:        Package providing the identity for Fedora Comp Neuro Lab
+Summary:        Package providing the identity for Asahi Fedora Remix Comp Neuro Lab
 
 RemovePathPostfixes: .compneuro
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-compneuro = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-compneuro = %{version}-%{release}
 
 
 %description identity-compneuro
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Comp Neuro Lab.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Comp Neuro Lab.
 %endif
 
 
 %if %{with container}
 %package container
-Summary:        Base package for Fedora container specific default configurations
+Summary:        Base package for Asahi Fedora Remix container specific default configurations
 
 RemovePathPostfixes: .container
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-container if nothing else is already doing so.
-Recommends:     fedora-release-identity-container
+# asahi-fedora-remix-release-identity-container if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-container
 
 
 %description container
-Provides a base package for Fedora container specific configuration files to
+Provides a base package for Asahi Fedora Remix container specific configuration files to
 depend on as well as container system defaults.
 
 
 %package identity-container
-Summary:        Package providing the identity for Fedora Container Base Image
+Summary:        Package providing the identity for Asahi Fedora Remix Container Base Image
 
 RemovePathPostfixes: .container
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-container = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-container = %{version}-%{release}
 
 
 %description identity-container
-Provides the necessary files for a Fedora installation that is identifying
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
 itself as the Fedora Container Base Image.
 %endif
 
 
 %if %{with coreos}
 %package coreos
-Summary:        Base package for Fedora CoreOS-specific default configurations
+Summary:        Base package for Asahi Fedora Remix CoreOS-specific default configurations
 
 RemovePathPostfixes: .coreos
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-coreos if nothing else is already doing so.
-Recommends:     fedora-release-identity-coreos
+# asahi-fedora-remix-release-identity-coreos if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-coreos
 
 
 %description coreos
-Provides a base package for Fedora CoreOS Host-specific configuration files to
+Provides a base package for Asahi Fedora Remix CoreOS Host-specific configuration files to
 depend.
 
 
 %package identity-coreos
-Summary:        Package providing the identity for Fedora CoreOS
+Summary:        Package providing the identity for Asahi Fedora Remix CoreOS
 
 RemovePathPostfixes: .coreos
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-coreos = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-coreos = %{version}-%{release}
 
 
 %description identity-coreos
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora CoreOS.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix CoreOS.
 %endif
 
 
 %if %{with designsuite}
 %package designsuite
-Summary:        Base package for Fedora Design Suite specific default configurations
+Summary:        Base package for Asahi Fedora Remix Design Suite specific default configurations
 
 RemovePathPostfixes: .designsuite
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 Provides:       system-release-product
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-designsuite if nothing else is already doing so.
-Recommends:     fedora-release-identity-designsuite
+# asahi-fedora-remix-release-identity-designsuite if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-designsuite
 
 
 %description designsuite
-Provides a base package for Fedora Design Suite specific configuration files to
+Provides a base package for Asahi Fedora Remix Design Suite specific configuration files to
 depend on.
 
 
 %package identity-designsuite
-Summary:        Package providing the identity for Fedora Design Suite Lab
+Summary:        Package providing the identity for Asahi Fedora Remix Design Suite Lab
 
 RemovePathPostfixes: .designsuite
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-designsuite = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-designsuite = %{version}-%{release}
 
 
 %description identity-designsuite
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Design Suite Lab.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Design Suite Lab.
 %endif
 
 
 %if %{with eln}
 %package eln
-Summary:        Base package for Fedora ELN specific default configurations
+Summary:        Base package for Asahi Fedora Remix ELN specific default configurations
 
 RemovePathPostfixes: .eln
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:eln)
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 Provides:       system-release-product
 Requires:       fedora-repos-eln
 
 Obsoletes:      redhat-release
 Provides:       redhat-release
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-eln if nothing else is already doing so.
-Recommends:     fedora-release-identity-eln
+# asahi-fedora-remix-release-identity-eln if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-eln
 
 
 %description eln
-Provides a base package for Fedora ELN specific configuration files to
+Provides a base package for Asahi Fedora Remix ELN specific configuration files to
 depend on.
 
 
 %package identity-eln
-Summary:        Package providing the identity for Fedora ELN
+Summary:        Package providing the identity for Asahi Fedora Remix ELN
 
 # When running a compose for ELN, we want to make sure that we pull in the
 # correct templates when lorax is installed. This Suggests: will clue
@@ -441,244 +441,244 @@ Summary:        Package providing the identity for Fedora ELN
 Suggests: lorax-templates-rhel
 
 RemovePathPostfixes: .eln
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-eln = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-eln = %{version}-%{release}
 
 
 %description identity-eln
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora ELN.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix ELN.
 %endif
 
 
 %if %{with iot}
 %package iot
-Summary:        Base package for Fedora IoT specific default configurations
+Summary:        Base package for Asahi Fedora Remix IoT specific default configurations
 
 RemovePathPostfixes: .iot
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-iot if nothing else is already doing so.
-Recommends:     fedora-release-identity-iot
+# asahi-fedora-remix-release-identity-iot if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-iot
 
 
 %description iot
-Provides a base package for Fedora IoT specific configuration files to
+Provides a base package for Asahi Fedora Remix IoT specific configuration files to
 depend on as well as IoT system defaults.
 
 
 %package identity-iot
-Summary:        Package providing the identity for Fedora IoT Edition
+Summary:        Package providing the identity for Asahi Fedora Remix IoT Edition
 
 RemovePathPostfixes: .iot
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-iot = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-iot = %{version}-%{release}
 
 
 %description identity-iot
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora IoT Edition.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix IoT Edition.
 %endif
 
 
 %if %{with kde}
 %package kde
-Summary:        Base package for Fedora KDE Plasma-specific default configurations
+Summary:        Base package for Asahi Fedora Remix KDE Plasma-specific default configurations
 
 RemovePathPostfixes: .kde
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-kde if nothing else is already doing so.
-Recommends:     fedora-release-identity-kde
+# asahi-fedora-remix-release-identity-kde if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-kde
 
 
 %description kde
-Provides a base package for Fedora KDE Plasma-specific configuration files to
+Provides a base package for Asahi Fedora Remix KDE Plasma-specific configuration files to
 depend on as well as KDE Plasma system defaults.
 
 
 %package identity-kde
-Summary:        Package providing the identity for Fedora KDE Plasma Spin
+Summary:        Package providing the identity for Asahi Fedora Remix KDE Plasma Spin
 
 RemovePathPostfixes: .kde
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-kde = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-kde = %{version}-%{release}
 
 
 %description identity-kde
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora KDE Plasma Spin.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix KDE Plasma Spin.
 %endif
 
 
 %if %{with matecompiz}
 %package matecompiz
-Summary:        Base package for Fedora MATE-Compiz-specific default configurations
+Summary:        Base package for Asahi Fedora Remix MATE-Compiz-specific default configurations
 
 RemovePathPostfixes: .matecompiz
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-matecompiz if nothing else is already doing so.
-Recommends:     fedora-release-identity-matecompiz
+# asahi-fedora-remix-release-identity-matecompiz if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-matecompiz
 
 
 %description matecompiz
-Provides a base package for Fedora MATE-compiz-specific configuration files to
+Provides a base package for Asahi Fedora Remix MATE-compiz-specific configuration files to
 depend on as well as MATE-Compiz system defaults.
 
 
 %package identity-matecompiz
-Summary:        Package providing the identity for Fedora MATE-Compiz Spin
+Summary:        Package providing the identity for Asahi Fedora Remix MATE-Compiz Spin
 
 RemovePathPostfixes: .matecompiz
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-matecompiz = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-matecompiz = %{version}-%{release}
 
 
 %description identity-matecompiz
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora MATE-Compiz.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix MATE-Compiz.
 %endif
 
 
 %if %{with server}
 %package server
-Summary:        Base package for Fedora Server-specific default configurations
+Summary:        Base package for Asahi Fedora Remix Server-specific default configurations
 
 RemovePathPostfixes: .server
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-server if nothing else is already doing so.
-Recommends:     fedora-release-identity-server
+# asahi-fedora-remix-release-identity-server if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-server
 
 
 %description server
-Provides a base package for Fedora Server-specific configuration files to
+Provides a base package for Asahi Fedora Remix Server-specific configuration files to
 depend on.
 
 
 %package identity-server
-Summary:        Package providing the identity for Fedora Server Edition
+Summary:        Package providing the identity for Asahi Fedora Remix Server Edition
 
 RemovePathPostfixes: .server
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-server = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-server = %{version}-%{release}
 
 
 %description identity-server
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Server Edition.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Server Edition.
 %endif
 
 
 %if %{with silverblue}
 %package silverblue
-Summary:        Base package for Fedora Silverblue-specific default configurations
+Summary:        Base package for Asahi Fedora Remix Silverblue-specific default configurations
 
 RemovePathPostfixes: .silverblue
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
-Requires:       fedora-release-ostree-desktop = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-ostree-desktop = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-silverblue if nothing else is already doing so.
-Recommends:     fedora-release-identity-silverblue
+# asahi-fedora-remix-release-identity-silverblue if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-silverblue
 
 
 %description silverblue
-Provides a base package for Fedora Silverblue-specific configuration files to
+Provides a base package for Asahi Fedora Remix Silverblue-specific configuration files to
 depend on as well as Silverblue system defaults.
 
 
 %package identity-silverblue
-Summary:        Package providing the identity for Fedora Silverblue
+Summary:        Package providing the identity for Asahi Fedora Remix Silverblue
 
 RemovePathPostfixes: .silverblue
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-silverblue = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-silverblue = %{version}-%{release}
 
 
 %description identity-silverblue
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Silverblue.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Silverblue.
 %endif
 
 
 %if %{with kinoite}
 %package kinoite
-Summary:        Base package for Fedora Kinoite-specific default configurations
+Summary:        Base package for Asahi Fedora Remix Kinoite-specific default configurations
 
 RemovePathPostfixes: .kinoite
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
-Requires:       fedora-release-ostree-desktop = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-ostree-desktop = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-kinoite if nothing else is already doing so.
-Recommends:     fedora-release-identity-kinoite
+# asahi-fedora-remix-release-identity-kinoite if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-kinoite
 
 
 %description kinoite
-Provides a base package for Fedora Kinoite-specific configuration files to
+Provides a base package for Asahi Fedora Remix Kinoite-specific configuration files to
 depend on as well as Kinoite system defaults.
 
 
 %package identity-kinoite
-Summary:        Package providing the identity for Fedora Kinoite
+Summary:        Package providing the identity for Asahi Fedora Remix Kinoite
 
 RemovePathPostfixes: .kinoite
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-kinoite = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-kinoite = %{version}-%{release}
 
 
 %description identity-kinoite
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Kinoite.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Kinoite.
 %endif
 
 
@@ -693,344 +693,344 @@ Configuration package for rpm-ostree variants to add rpm-ostree polkit rules
 
 %if %{with snappy}
 %package snappy
-Summary:        Base package for Fedora snap specific default configurations
+Summary:        Base package for Asahi Fedora Remix snap specific default configurations
 
 RemovePathPostfixes: .snappy
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-snappy if nothing else is already doing so.
-Recommends:     fedora-release-identity-snappy
+# asahi-fedora-remix-release-identity-snappy if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-snappy
 
 
 %description snappy
-Provides a base package for Fedora snap specific configuration files to
+Provides a base package for Asahi Fedora Remix snap specific configuration files to
 depend on as well as Snappy system defaults.
 
 
 %package identity-snappy
-Summary:        Package providing the identity for Fedora Snappy environments
+Summary:        Package providing the identity for Asahi Fedora Remix Snappy environments
 
 RemovePathPostfixes: .snappy
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-snappy = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-snappy = %{version}-%{release}
 
 
 %description identity-snappy
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora's snappy environment.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix's snappy environment.
 %endif
 
 
 %if %{with soas}
 %package soas
-Summary:        Base package for Fedora Sugar on a Stick-specific default configurations
+Summary:        Base package for Asahi Fedora Remix Sugar on a Stick-specific default configurations
 
 RemovePathPostfixes: .soas
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-soas if nothing else is already doing so.
-Recommends:     fedora-release-identity-soas
+# asahi-fedora-remix-release-identity-soas if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-soas
 
 
 %description soas
-Provides a base package for Fedora Sugar on a Stick-specific configuration
+Provides a base package for Asahi Fedora Remix Sugar on a Stick-specific configuration
 files to depend on as well as SoaS system defaults.
 
 
 %package identity-soas
-Summary:        Package providing the identity for Fedora Sugar on a Stick
+Summary:        Package providing the identity for Asahi Fedora Remix Sugar on a Stick
 
 RemovePathPostfixes: .soas
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-soas = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-soas = %{version}-%{release}
 
 
 %description identity-soas
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Sugar on a Stick.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Sugar on a Stick.
 %endif
 
 
 %if %{with workstation}
 %package workstation
-Summary:        Base package for Fedora Workstation-specific default configurations
+Summary:        Base package for Asahi Fedora Remix Workstation-specific default configurations
 
 RemovePathPostfixes: .workstation
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 Provides:       system-release-product
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-workstation if nothing else is already doing so.
-Recommends:     fedora-release-identity-workstation
+# asahi-fedora-remix-release-identity-workstation if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-workstation
 
 
 %description workstation
-Provides a base package for Fedora Workstation-specific configuration files to
+Provides a base package for Asahi Fedora Remix Workstation-specific configuration files to
 depend on.
 
 
 %package identity-workstation
-Summary:        Package providing the identity for Fedora Workstation Edition
+Summary:        Package providing the identity for Asahi Fedora Remix Workstation Edition
 
 RemovePathPostfixes: .workstation
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-workstation = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-workstation = %{version}-%{release}
 
 
 %description identity-workstation
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Workstation Edition.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Workstation Edition.
 %endif
 
 
 %if %{with xfce}
 %package xfce
-Summary:        Base package for Fedora Xfce specific default configurations
+Summary:        Base package for Asahi Fedora Remix Xfce specific default configurations
 
 RemovePathPostfixes: .xfce
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-xfce if nothing else is already doing so.
-Recommends:     fedora-release-identity-xfce
+# asahi-fedora-remix-release-identity-xfce if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-xfce
 
 
 %description xfce
-Provides a base package for Fedora Xfce specific configuration files to
+Provides a base package for Asahi Fedora Remix Xfce specific configuration files to
 depend on as well as Xfce system defaults.
 
 
 %package identity-xfce
-Summary:        Package providing the identity for Fedora Xfce Spin
+Summary:        Package providing the identity for Asahi Fedora Remix Xfce Spin
 
 RemovePathPostfixes: .xfce
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-xfce = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-xfce = %{version}-%{release}
 
 
 %description identity-xfce
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Xfce.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Xfce.
 %endif
 
 
 %if %{with i3}
 %package i3
-Summary:        Base package for Fedora i3 specific default configurations
+Summary:        Base package for Asahi Fedora Remix i3 specific default configurations
 
 RemovePathPostfixes: .i3
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-i3 if nothing else is already doing so.
-Recommends:     fedora-release-identity-i3
+# asahi-fedora-remix-release-identity-i3 if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-i3
 
 
 %description i3
-Provides a base package for Fedora i3 specific configuration files to
+Provides a base package for Asahi Fedora Remix i3 specific configuration files to
 depend on.
 
 
 %package identity-i3
-Summary:        Package providing the identity for Fedora i3 Spin
+Summary:        Package providing the identity for Asahi Fedora Remix i3 Spin
 
 RemovePathPostfixes: .i3
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-i3 = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-i3 = %{version}-%{release}
 
 
 %description identity-i3
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora i3.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix i3.
 %endif
 
 
 %if %{with lxqt}
 %package lxqt
-Summary:        Base package for Fedora LXQt specific default configurations
+Summary:        Base package for Asahi Fedora Remix LXQt specific default configurations
 
 RemovePathPostfixes: .lxqt
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-lxqt if nothing else is already doing so.
-Recommends:     fedora-release-identity-lxqt
+# asahi-fedora-remix-release-identity-lxqt if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-lxqt
 
 
 %description lxqt
-Provides a base package for Fedora LXQt specific configuration files to
+Provides a base package for Asahi Fedora Remix LXQt specific configuration files to
 depend on as well as LXQt system defaults.
 
 
 %package identity-lxqt
-Summary:        Package providing the identity for Fedora LXQt Spin
+Summary:        Package providing the identity for Asahi Fedora Remix LXQt Spin
 
 RemovePathPostfixes: .lxqt
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-lxqt = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-lxqt = %{version}-%{release}
 
 
 %description identity-lxqt
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora LXQt.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix LXQt.
 %endif
 
 %if %{with budgie}
 %package budgie
-Summary:        Base package for Fedora Budgie specific default configurations
+Summary:        Base package for Asahi Fedora Remix Budgie specific default configurations
 
 RemovePathPostfixes: .budgie
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-release-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-budgie if nothing else is already doing so.
-Recommends:     fedora-release-identity-budgie
+# asahi-fedora-remix-release-identity-budgie if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-budgie
 
 
 %description budgie
-Provides a base package for Fedora Budgie specific configuration files to
+Provides a base package for Asahi Fedora Remix Budgie specific configuration files to
 depend on as well as Budgie system defaults.
 
 
 %package identity-budgie
-Summary:        Package providing the identity for Fedora Budgie Spin
+Summary:        Package providing the identity for Asahi Fedora Remix Budgie Spin
 
 RemovePathPostfixes: .budgie
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-budgie = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-budgie = %{version}-%{release}
 
 
 %description identity-budgie
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Budgie.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Budgie.
 %endif
 
 
 %if %{with sway}
 %package sway
-Summary:        Base package for Fedora Sway specific default configurations
+Summary:        Base package for Asahi Fedora Remix Sway specific default configurations
 
 RemovePathPostfixes: .sway
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-sway if nothing else is already doing so.
-Recommends:     fedora-release-identity-sway
+# asahi-fedora-remix-release-identity-sway if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-sway
 
 
 %description sway
-Provides a base package for Fedora Sway specific configuration files to
+Provides a base package for Asahi Fedora Remix Sway specific configuration files to
 depend on.
 
 
 %package identity-sway
-Summary:        Package providing the identity for Fedora Sway Spin
+Summary:        Package providing the identity for Asahi Fedora Remix Sway Spin
 
 RemovePathPostfixes: .sway
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-sway = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-sway = %{version}-%{release}
 
 
 %description identity-sway
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Sway.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Sway.
 %endif
 
 
 %if %{with sericea}
 %package sericea
-Summary:        Base package for Fedora Sericea specific default configurations
+Summary:        Base package for Asahi Fedora Remix Sericea specific default configurations
 
 RemovePathPostfixes: .sericea
-Provides:       fedora-release = %{version}-%{release}
-Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
-Requires:       fedora-release-common = %{version}-%{release}
-Requires:       fedora-release-ostree-desktop = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-ostree-desktop = %{version}-%{release}
 
-# fedora-release-common Requires: fedora-release-identity, so at least one
+# asahi-fedora-remix-common Requires: asahi-fedora-remix-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
-# fedora-release-identity-sericea if nothing else is already doing so.
-Recommends:     fedora-release-identity-sericea
+# asahi-fedora-remix-release-identity-sericea if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-sericea
 
 
 %description sericea
-Provides a base package for Fedora Sericea specific configuration
+Provides a base package for Asahi Fedora Remix Sericea specific configuration
 files to depend on.
 
 
 %package identity-sericea
-Summary:        Package providing the identity for Fedora Sericea
+Summary:        Package providing the identity for Asahi Fedora Remix Sericea
 
 RemovePathPostfixes: .sericea
-Provides:       fedora-release-identity = %{version}-%{release}
-Conflicts:      fedora-release-identity
-Requires(meta): fedora-release-sericea = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-sericea = %{version}-%{release}
 
 
 %description identity-sericea
-Provides the necessary files for a Fedora installation that is identifying
-itself as Fedora Sericea.
+Provides the necessary files for an Asahi Fedora Remix installation that is identifying
+itself as Asahi Fedora Remix Sericea.
 %endif
 
 
@@ -1071,12 +1071,12 @@ ln -s fedora-release %{buildroot}%{_sysconfdir}/system-release
 # Name of vendor / name of distribution. Typically used to identify where
 # the binary comes from in --help or --version messages of programs.
 # Examples: gdb.spec, clang.spec
-%global dist_vendor Fedora
-%global dist_name   Fedora Linux
+%global dist_vendor Fedora Asahi
+%global dist_name   Asahi Fedora Linux Remix
 
 # URL of the homepage of the distribution
 # Example: gstreamer1-plugins-base.spec
-%global dist_home_url https://fedoraproject.org/
+%global dist_home_url https://pagure.io/fedora-asahi/project
 
 # Bugzilla / bug reporting URLs shown to users.
 # Examples: gcc.spec
@@ -1089,14 +1089,15 @@ ln -s fedora-release %{buildroot}%{_sysconfdir}/system-release
 cat << EOF >> os-release
 NAME="%{dist_name}"
 VERSION="%{dist_version} (%{release_name}%{?prerelease})"
-ID=fedora
+ID=asahi-fedora-remix
+ID_LIKE=fedora
 VERSION_ID=%{dist_version}
 VERSION_CODENAME=""
 PLATFORM_ID="platform:f%{dist_version}"
-PRETTY_NAME="Fedora Linux %{dist_version} (%{release_name}%{?prerelease})"
+PRETTY_NAME="Asahi Fedora Linux Remix %{dist_version} (%{release_name}%{?prerelease})"
 ANSI_COLOR="0;38;2;60;110;180"
 LOGO=fedora-logo-icon
-CPE_NAME="cpe:/o:fedoraproject:fedora:%{dist_version}"
+CPE_NAME="cpe:/o:fedoraproject:asahi-fedora-remix:%{dist_version}"
 DEFAULT_HOSTNAME="fedora"
 HOME_URL="%{dist_home_url}"
 DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/fedora/%{doc_version}/system-administrators-guide/"
