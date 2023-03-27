@@ -1594,6 +1594,14 @@ sed -e "s#\$version#%{bug_version}#g" -e 's/<!--.*-->//;/^$/d' %{SOURCE19} > %{b
 install -d %{buildroot}%{_sysconfdir}/swid/swidtags.d
 ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.org
 
+# Create the copr vendor file
+install -d %{buildroot}%{_datadir}/dnf/plugins
+cat >> %{buildroot}%{_datadir}/dnf/plugins/copr.vendor.conf << EOF
+[main]
+distribution = fedora
+releasever = %{releasever}
+EOF
+
 
 %files common
 %license licenses/LICENSE licenses/Fedora-Legal-README.txt
@@ -1621,6 +1629,8 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %{_swidtagdir}/org.fedoraproject.Fedora-%{bug_version}.swidtag
 %dir %{_sysconfdir}/swid
 %{_sysconfdir}/swid/swidtags.d
+%dir %{_datadir}/dnf/plugins
+%{_datadir}/dnf/plugins/copr.vendor.conf
 
 
 %if %{with basic}
