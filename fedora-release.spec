@@ -486,6 +486,10 @@ Suggests: ipa-server-trust-ad
 Suggests: ipa-healthcheck
 Suggests: ipa-healthcheck-core
 
+# Prefer over exim, opensmtpd for Provides: MTA smtpd smtpdaemon server(smtp)
+# sendmail is also in RHEL but does not Provides: smtpdaemon
+Suggests: postfix
+
 RemovePathPostfixes: .eln
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
