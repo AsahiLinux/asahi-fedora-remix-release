@@ -490,6 +490,9 @@ Suggests: ipa-healthcheck-core
 # sendmail is also in RHEL but does not Provides: smtpdaemon
 Suggests: postfix
 
+# Prefer over cdrkit/genisoimage for /usr/bin/mkisofs
+Suggests: xorriso
+
 RemovePathPostfixes: .eln
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
