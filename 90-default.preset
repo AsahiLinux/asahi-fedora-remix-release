@@ -393,3 +393,7 @@ enable nmstate.service
 # Enable nfs-client.target
 # https://bugzilla.redhat.com/show_bug.cgi?id=2218006
 enable nfs-client.target
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2230575
+enable grub-boot-indeterminate.service
+enable grub-systemd-integration.service
