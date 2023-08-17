@@ -1572,7 +1572,7 @@ cat >> %{buildroot}%{_rpmconfigdir}/macros.d/macros.dist << EOF
 %%el%{rhel_dist_version}                1
 # Although eln is set in koji tags, we put it in the macros.dist file for local and mock builds.
 %%eln              %{eln}
-%%distcore            .el%%{eln}
+%%distcore            .eln%%{eln}
 %else
 %%fedora              %{dist_version}
 %%fc%{dist_version}                1
