@@ -1578,7 +1578,7 @@ cat >> %{buildroot}%{_rpmconfigdir}/macros.d/macros.dist << EOF
 %%fc%{dist_version}                1
 %%distcore            .fc%%{fedora}
 %endif
-%%dist                %%{!?distprefix0:%%{?distprefix}}%%{expand:%%{lua:for i=0,9999 do print("%%{?distprefix" .. i .."}") end}}%%{distcore}{?with_bootstrap:%%{__bootstrap}}
+%%dist                %%{!?distprefix0:%%{?distprefix}}%%{expand:%%{lua:for i=0,9999 do print("%%{?distprefix" .. i .."}") end}}%%{distcore}%%{?with_bootstrap:%%{__bootstrap}}
 %%dist_vendor         %{dist_vendor}
 %%dist_name           %{dist_name}
 %%dist_home_url       %{dist_home_url}
