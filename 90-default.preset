@@ -397,3 +397,10 @@ enable nfs-client.target
 # https://bugzilla.redhat.com/show_bug.cgi?id=2230575
 enable grub-boot-indeterminate.service
 enable grub-systemd-integration.service
+
+# Enable cloud-init services
+# https://bugzilla.redhat.com/show_bug.cgi?id=2233948
+enable cloud-config.service
+enable cloud-final.service
+enable cloud-init.service
+enable cloud-init-local.service
