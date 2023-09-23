@@ -98,7 +98,7 @@
 Summary:        Asahi Fedora Remix release files
 Name:           asahi-fedora-remix-release
 Version:        %{dist_version}
-Release:        1
+Release:        2
 License:        MIT
 URL:            https://pagure.io/fedora-asahi/project
 
@@ -2034,6 +2034,9 @@ EOF
 
 
 %changelog
+* Fri Sep 22 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 40-2
+- Bump the release to ensure existing systems get updated
+
 * Fri Sep 22 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 40-1
 - Merge upstream changes
 - Stop using rpmautospec, it doesn't work in copr
