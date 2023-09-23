@@ -19,3 +19,6 @@ enable dbus-parsec.service
 
 # zezere_ignition provides first-boot provisioning and configuration
 enable zezere_ignition.timer
+
+# https://fedoraproject.org/wiki/Changes/EnableFwupdRefreshByDefault
+enable fwupd-refresh.timer

@@ -4,16 +4,21 @@
 %elif 0%{?fc38}
 %define release_name Thirty Eight
 %define is_rawhide 0
+%elif 0%{?fc39}
+%define release_name Thirty Nine
+%define is_rawhide 0
 %else
 %define release_name Rawhide
 %define is_rawhide 1
 %endif
 
+%define eol_date 2024-05-14
+
 # This is going to go badly for you if you build on not-Fedora...
 %if 0%{?fedora}
 %define dist_version %{fedora}
 %else
-%define dist_version 39
+%define dist_version 40
 %endif
 %define rhel_dist_version 10
 
@@ -51,6 +56,8 @@
 %bcond_with budgie
 %bcond_with sway
 %bcond_with sericea
+%bcond_with onyx
+%bcond_with mobility
 %else
 %bcond_without basic
 %bcond_without cinnamon
@@ -75,13 +82,18 @@
 %bcond_without budgie
 %bcond_without sway
 %bcond_without sericea
+%bcond_without onyx
+%bcond_without mobility
 %endif
 
-%if %{with silverblue} || %{with kinoite} || %{with sericea}
+%if %{with silverblue} || %{with kinoite} || %{with sericea} || %{with onyx}
 %global with_ostree_desktop 1
 %endif
 
 %global dist %{?eln:.eln%{eln}}
+
+# Changes should be submitted as pull requests under
+#     https://pagure.io/fedora-asahi/asahi-fedora-remix-release
 
 Summary:        Asahi Fedora Remix release files
 Name:           asahi-fedora-remix-release
@@ -115,6 +127,7 @@ Source25:       plasma-desktop.conf
 Source26:       80-kde.preset
 Source27:       81-desktop.preset
 Source28:       longer-default-shutdown-timeout.conf
+Source29:       org.gnome.settings-daemon.plugins.power.gschema.override
 
 BuildArch:      noarch
 
@@ -493,6 +506,54 @@ Summary:        Package providing the identity for Asahi Fedora Remix ELN
 # correct templates when lorax is installed. This Suggests: will clue
 # libdnf to use this set of templates instead of lorax-templates-generic.
 Suggests: lorax-templates-rhel
+
+# Both netcat and nmap-ncat provide /usr/bin/nc, so prefer the latter like
+# RHEL does.
+Suggests: nmap-ncat
+
+# Prefer over original standalone versions (without pipewire- prefix)
+Suggests: pipewire-jack-audio-connection-kit
+Suggests: pipewire-jack-audio-connection-kit-devel
+Suggests: pipewire-pulseaudio
+
+# Prefer over Lmod for Provides: environment(modules)
+Suggests: environment-modules
+
+# Prefer over elinks, w3m for Provides: text-www-browser
+Suggests: lynx
+
+# Prefer over bind9-next and its subpackages
+Suggests: bind
+Suggests: bind-devel
+Suggests: bind-dnssec-utils
+Suggests: bind-utils
+
+# Default OpenJDK version, prefer over other versions for
+# Provides: java, java-devel, java-headless, etc.
+Suggests: java-17-openjdk
+Suggests: java-17-openjdk-devel
+Suggests: java-17-openjdk-headless
+
+# Prefer over Fedora freeipa (same code, different name, each Provides the other)
+Suggests: ipa-client
+Suggests: ipa-client-common
+Suggests: ipa-client-epn
+Suggests: ipa-client-samba
+Suggests: ipa-common
+Suggests: ipa-selinux
+Suggests: ipa-server
+Suggests: ipa-server-common
+Suggests: ipa-server-dns
+Suggests: ipa-server-trust-ad
+Suggests: ipa-healthcheck
+Suggests: ipa-healthcheck-core
+
+# Prefer over exim, opensmtpd for Provides: MTA smtpd smtpdaemon server(smtp)
+# sendmail is also in RHEL but does not Provides: smtpdaemon
+Suggests: postfix
+
+# Prefer over cdrkit/genisoimage for /usr/bin/mkisofs
+Suggests: xorriso
 
 RemovePathPostfixes: .eln
 Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
@@ -1174,6 +1235,90 @@ Provides the necessary files for an Asahi Fedora Remix installation that is iden
 itself as Asahi Fedora Remix Sericea.
 %endif
 
+%if %{with onyx}
+%package onyx
+Summary:        Base package for Fedora Onyx specific default configurations
+
+RemovePathPostfixes: .onyx
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
+Provides:       system-release
+Provides:       system-release(%{version})
+Provides:       base-module(platform:f%{version})
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+Requires:       asahi-fedora-remix-release-ostree-desktop = %{version}-%{release}
+
+Obsoletes:      fedora-release-onyx < 1:%{version}-%{release}
+Provides:       fedora-release-onyx = 1:%{version}-%{release}
+
+# asahi-fedora-remix-common Requires: asahi-fedora-remix-release-identity, so at least one
+# package must provide it. This Recommends: pulls in
+# asahi-fedora-remix-release-identity-onyx if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-onyx
+
+
+%description onyx
+Provides a base package for Fedora Onyx specific configuration
+files to depend on.
+
+
+%package identity-onyx
+Summary:        Package providing the identity for Fedora Onyx
+
+RemovePathPostfixes: .onyx
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-onyx = %{version}-%{release}
+
+Obsoletes:      fedora-release-identity-onyx < 1:%{version}-%{release}
+Provides:       fedora-release-identity-onyx = 1:%{version}-%{release}
+
+
+%description identity-onyx
+Provides the necessary files for a Fedora installation that is identifying
+itself as Fedora Onyx.
+%endif
+
+
+%if %{with mobility}
+%package mobility
+Summary:        Base package for Fedora Mobility specific default configurations
+
+RemovePathPostfixes: .mobility
+Provides:       asahi-fedora-remix-release = %{version}-%{release}
+Provides:       asahi-fedora-remix-release-variant = %{version}-%{release}
+Provides:       system-release
+Provides:       system-release(%{version})
+Provides:       base-module(platform:f%{version})
+Requires:       asahi-fedora-remix-release-common = %{version}-%{release}
+
+# asahi-fedora-remix-common Requires: asahi-fedora-remix-release-identity, so at least one
+# package must provide it. This Recommends: pulls in
+# asahi-fedora-remix-release-identity-mobility if nothing else is already doing so.
+Recommends:     asahi-fedora-remix-release-identity-mobility
+
+
+%description mobility
+Provides a base package for Fedora Mobility specific configuration
+files to depend on.
+
+
+%package identity-mobility
+Summary:        Package providing the identity for Fedora Mobility
+
+RemovePathPostfixes: .mobility
+Provides:       asahi-fedora-remix-release-identity = %{version}-%{release}
+Conflicts:      asahi-fedora-remix-release-identity
+Requires(meta): asahi-fedora-remix-release-mobility = %{version}-%{release}
+
+Obsoletes:      fedora-release-identity-mobility < 1:%{version}-%{release}
+Provides:       fedora-release-identity-mobility = 1:%{version}-%{release}
+
+
+%description identity-mobility
+Provides the necessary files for a Fedora installation that is identifying
+itself as Fedora Mobility.
+%endif
 
 %prep
 mkdir -p licenses
@@ -1408,6 +1553,9 @@ sed -i -e "s|(%{release_name}%{?prerelease})|(Server Edition%{?prerelease})|g" %
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Server/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.server
 sed -i -e "/^DEFAULT_HOSTNAME=/d" %{buildroot}%{_prefix}/lib/os-release.server
 install -Dm0644 %{SOURCE14} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
+install -Dm0644 %{SOURCE29} -t %{buildroot}%{_datadir}/glib-2.0/schemas/
+install -Dm0644 %{SOURCE28} -t %{buildroot}%{_prefix}/lib/systemd/system.conf.d/
+install -Dm0644 %{SOURCE28} -t %{buildroot}%{_prefix}/lib/systemd/user.conf.d/
 %endif
 
 %if %{with silverblue}
@@ -1545,13 +1693,31 @@ cp -p os-release %{buildroot}%{_prefix}/lib/os-release.sericea
 echo "VARIANT=\"Sericea\"" >> %{buildroot}%{_prefix}/lib/os-release.sericea
 echo "VARIANT_ID=sericea" >> %{buildroot}%{_prefix}/lib/os-release.sericea
 sed -i -e "s|(%{release_name}%{?prerelease})|(Sericea%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.sericea
+sed -i -e 's|DOCUMENTATION_URL=.*|DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/fedora-sericea/"|' %{buildroot}%{_prefix}/lib/os-release.sericea
+sed -i -e 's|HOME_URL=.*|HOME_URL="https://fedoraproject.org/sericea/"|' %{buildroot}/%{_prefix}/lib/os-release.sericea
 sed -i -e 's|BUG_REPORT_URL=.*|BUG_REPORT_URL="https://gitlab.com/fedora/sigs/sway/SIG/-/issues"|' %{buildroot}/%{_prefix}/lib/os-release.sericea
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Sericea/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sericea
 %endif
 
+%if %{with onyx}
+cp -p os-release %{buildroot}%{_prefix}/lib/os-release.onyx
+echo "VARIANT=\"Onyx\"" >> %{buildroot}%{_prefix}/lib/os-release.onyx
+echo "VARIANT_ID=onyx" >> %{buildroot}%{_prefix}/lib/os-release.onyx
+sed -i -e "s|(%{release_name}%{?prerelease})|(Onyx%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.onyx
+sed -i -e 's|DOCUMENTATION_URL=.*|DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/fedora-onyx/"|' %{buildroot}%{_prefix}/lib/os-release.onyx
+sed -i -e 's|HOME_URL=.*|HOME_URL="https://fedoraproject.org/onyx/"|' %{buildroot}/%{_prefix}/lib/os-release.onyx
+sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Onyx/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.onyx
+%endif
+
+%if %{with mobility}
+cp -p os-release %{buildroot}%{_prefix}/lib/os-release.mobility
+echo "VARIANT=\"Mobility\"" >> %{buildroot}%{_prefix}/lib/os-release.mobility
+echo "VARIANT_ID=mobility" >> %{buildroot}%{_prefix}/lib/os-release.mobility
+sed -i -e "s|(%{release_name}%{?prerelease})|(Mobility%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.mobility
+sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Mobility/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.mobility
+%endif
 # Create the symlink for /etc/os-release
 ln -s ../usr/lib/os-release %{buildroot}%{_sysconfdir}/os-release
-
 
 # Set up the dist tag macros
 install -d -m 755 %{buildroot}%{_rpmconfigdir}/macros.d
@@ -1564,12 +1730,13 @@ cat >> %{buildroot}%{_rpmconfigdir}/macros.d/macros.dist << EOF
 %%el%{rhel_dist_version}                1
 # Although eln is set in koji tags, we put it in the macros.dist file for local and mock builds.
 %%eln              %{eln}
-%%dist                %%{!?distprefix0:%%{?distprefix}}%%{expand:%%{lua:for i=0,9999 do print("%%{?distprefix" .. i .."}") end}}.el%%{eln}%%{?with_bootstrap:%{__bootstrap}}
+%%distcore            .eln%%{eln}
 %else
 %%fedora              %{dist_version}
 %%fc%{dist_version}                1
-%%dist                %%{!?distprefix0:%%{?distprefix}}%%{expand:%%{lua:for i=0,9999 do print("%%{?distprefix" .. i .."}") end}}.fc%%{fedora}%%{?with_bootstrap:%{__bootstrap}}
+%%distcore            .fc%%{fedora}
 %endif
+%%dist                %%{!?distprefix0:%%{?distprefix}}%%{expand:%%{lua:for i=0,9999 do print("%%{?distprefix" .. i .."}") end}}%%{distcore}%%{?with_bootstrap:%%{__bootstrap}}
 %%dist_vendor         %{dist_vendor}
 %%dist_name           %{dist_name}
 %%dist_home_url       %{dist_home_url}
@@ -1735,7 +1902,10 @@ EOF
 %files identity-server
 %{_prefix}/lib/os-release.server
 %{_prefix}/lib/systemd/system-preset/80-server.preset
+%{_prefix}/lib/systemd/system.conf.d/longer-default-shutdown-timeout.conf
+%{_prefix}/lib/systemd/user.conf.d/longer-default-shutdown-timeout.conf
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.server
+%{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.power.gschema.override
 %endif
 
 
@@ -1845,6 +2015,24 @@ EOF
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sericea
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
+%endif
+
+%if %{with onyx}
+%files onyx
+%files identity-onyx
+%{_prefix}/lib/os-release.onyx
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.onyx
+%{_prefix}/lib/systemd/system-preset/81-desktop.preset
+%{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
+%endif
+
+
+%if %{with mobility}
+%files mobility
+%files identity-mobility
+%{_prefix}/lib/os-release.mobility
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.mobility
+%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 
