@@ -98,10 +98,7 @@
 Summary:        Asahi Fedora Remix release files
 Name:           asahi-fedora-remix-release
 Version:        %{dist_version}
-# The numbering is 0.<r> before a given Fedora Linux release is released,
-# with r starting at 1, and then just <r>, with r starting again at 1.
-# Use '%%autorelease -p' before final, and then drop the '-p'.
-Release:        %autorelease -p
+Release:        1
 License:        MIT
 URL:            https://pagure.io/fedora-asahi/project
 
@@ -2037,4 +2034,6 @@ EOF
 
 
 %changelog
-%autochangelog
+* Fri Sep 22 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 40-1
+- Merge upstream changes
+- Stop using rpmautospec, it doesn't work in copr
